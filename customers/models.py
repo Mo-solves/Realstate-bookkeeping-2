@@ -24,6 +24,7 @@ class Customer(ComputedFieldsModel):
 
     @computed(models.IntegerField(), depends=[("self", ["starting_date", "due_date"])])
     def remainig_days(self):
+        (self.due_date - self.starting_date).days
         return (self.due_date - self.starting_date).days
 
 
