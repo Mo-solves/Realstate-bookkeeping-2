@@ -1,5 +1,6 @@
 from django.db import models
 from computedfields.models import ComputedFieldsModel, computed
+from datetime import date
 
 
 # Create your models here.
@@ -24,8 +25,9 @@ class Customer(ComputedFieldsModel):
 
     @computed(models.IntegerField(), depends=[("self", ["starting_date", "due_date"])])
     def remainig_days(self):
-        (self.due_date - self.starting_date).days
-        return (self.due_date - self.starting_date).days
+        today = date.today()
+        result = self.due_date - today
+        return result.days
 
 
 class RealState(models.Model):
